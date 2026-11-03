@@ -65,17 +65,33 @@ test_that("species names are matched to the GBIF backbone", {
   expect_error(fr_taxonomy(data.frame(x = 1)), "species")
 })
 
-test_that("live GBIF and iNaturalist searches return fruiting observations", {
+live <- function(expr) {
+  tryCatch(expr, error = function(e) {
+    if (grepl("HTTP 5[0-9][0-9]|could not be reached", conditionMessage(e))) {
+      skip(paste("service unavailable:", conditionMessage(e)))
+    }
+    stop(e)
+  })
+}
+
+test_that("live GBIF search returns fruiting observations", {
   skip_on_cran()
   skip_on_ci()
   skip_if_offline("api.gbif.org")
-  p <- fr_gbif_photos("Sorbus aucuparia", n = 2)
+  p <- live(fr_gbif_photos("Sorbus aucuparia", n = 2))
   expect_lte(nrow(p), 2)
   expect_true(all(p$license %in% c("CC0_1_0", "CC_BY_4_0")))
-  q <- fr_inat_photos("Sorbus aucuparia", n = 2)
+  expect_true(all(grepl("fruit", p$reproductiveCondition, ignore.case = TRUE)))
+})
+
+test_that("live iNaturalist search and GBIF name matching", {
+  skip_on_cran()
+  skip_on_ci()
+  skip_if_offline("api.inaturalist.org")
+  q <- live(fr_inat_photos("Sorbus aucuparia", n = 2))
   expect_lte(nrow(q), 2)
   expect_true(all(q$license %in% c("cc0", "cc-by")))
-  expect_equal(fr_taxonomy("Sorbus aucuparia")$family, "Rosaceae")
+  expect_equal(live(fr_taxonomy("Sorbus aucuparia"))$family, "Rosaceae")
 })
 
 test_that("photos are downloaded once and failed downloads are reported", {

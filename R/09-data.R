@@ -69,15 +69,19 @@
 #'
 #' Mean colour of the measurable photographs of 104 species whose fruit
 #' reflectance spectra were compiled by Sinnott-Armstrong et al. (2018), with
-#' the spectral measures of that compilation.
+#' the spectral measures of that compilation. The photographs are
+#' research-grade 'iNaturalist' photographs of fleshy-fruited woody plants
+#' processed with the back end of this package.
 #'
 #' @format A data frame with one row per species:
 #' \describe{
 #'   \item{species}{species name}
 #'   \item{photos}{number of measurable photographs}
 #'   \item{L, a, b, C, hue_deg}{mean CIELAB colour of the measurable photographs}
-#'   \item{photo_name}{colour name of the mean photo colour ([fr_colour_name()])}
-#'   \item{spectrum_colour}{colour of the spectrum entry (most frequent entry)}
+#'   \item{photo_name}{most frequent colour name ([fr_colour_name()]) among the
+#'     measurable photographs}
+#'   \item{spectrum_colour}{colour description of the first spectrum entry of the
+#'     species in the compilation}
 #'   \item{n_entries}{number of spectrum entries}
 #'   \item{spectral_lightness, spectral_saturation, spectral_hue_nm}{mean
 #'     spectral lightness, saturation and hue (nm) of the entries}
