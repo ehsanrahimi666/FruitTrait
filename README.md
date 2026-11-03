@@ -1,7 +1,6 @@
 # FruitTrait
 
 [![R-CMD-check](https://github.com/ehsanrahimi666/FruitTrait/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ehsanrahimi666/FruitTrait/actions/workflows/R-CMD-check.yaml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23913033.svg)](https://doi.org/10.5281/zenodo.23913033)
 
 **Colour of fleshy fruits from field photographs**
 
@@ -148,8 +147,7 @@ invariance and verdict of all 32 traits.
 
 ## Citation
 
-See `citation("FruitTrait")`. Version 0.1.0 is archived in Zenodo:
-https://doi.org/10.5281/zenodo.23913034.
+See `citation("FruitTrait")`.
 
 ## License
 

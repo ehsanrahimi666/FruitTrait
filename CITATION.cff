@@ -9,7 +9,6 @@ abstract: >-
   the ripe fruits of each photograph, with a catalogue of the repeatability and
   invariance of every trait.
 version: 0.1.0
-doi: 10.5281/zenodo.23913034
 date-released: 2026-11-03
 license: GPL-3.0-or-later
 repository-code: "https://github.com/ehsanrahimi666/FruitTrait"
