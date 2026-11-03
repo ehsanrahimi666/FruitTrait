@@ -1,6 +1,13 @@
 cff-version: 1.2.0
 message: "If you use FruitTrait, please cite it as below."
 title: "FruitTrait: Colour of Fleshy Fruits from Field Photographs"
+abstract: >-
+  R package with an optional Python back end that measures the colour of single
+  fleshy fruits in field photographs: it detects fruits with Grounding DINO,
+  outlines every fruit with Segment Anything 2.1, checks each outline, classifies
+  fruits as single and ripe, and returns the CIELAB colour of every fruit and of
+  the ripe fruits of each photograph, with a catalogue of the repeatability and
+  invariance of every trait.
 version: 0.1.0
 date-released: 2026-11-03
 license: GPL-3.0-or-later
@@ -10,8 +17,10 @@ authors:
   - family-names: Rahimi
     given-names: Ehsan
     orcid: "https://orcid.org/0000-0002-8401-472X"
+    affiliation: Gyeongkuk National University
   - family-names: Jung
     given-names: Chuleui
+    affiliation: Gyeongkuk National University
 keywords:
   - fruit colour
   - frugivory
