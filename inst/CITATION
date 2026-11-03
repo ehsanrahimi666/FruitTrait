@@ -4,5 +4,6 @@ bibentry(
   author = c(person("Ehsan", "Rahimi"), person("Chuleui", "Jung")),
   year = "2026",
   note = "R package version 0.1.0",
+  doi = "10.5281/zenodo.23913034",
   url = "https://github.com/ehsanrahimi666/FruitTrait"
 )
