@@ -1,0 +1,58 @@
+Package: FruitTrait
+Type: Package
+Title: Colour of Fleshy Fruits from Field Photographs
+Version: 0.1.0
+Authors@R: c(
+    person("Ehsan", "Rahimi", email = "ehsanrahimi666@gmail.com",
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-8401-472X")),
+    person("Chuleui", "Jung", email = "cjung@gknu.ac.kr", role = "aut"))
+Description: Measures the colour of single fleshy fruits in field photographs:
+    single photos, folders of photos, folders sorted by species, or photos of
+    fruiting observations found through the Global Biodiversity Information
+    Facility ('GBIF') and 'iNaturalist'. An optional 'Python' back end finds
+    fruits with 'Grounding DINO' in two passes, outlines every single fruit
+    with 'Segment Anything' 2.1, rejects outlines that are too small, cut,
+    overlapping or clustered, classifies each outlined fruit (single fruit
+    with a correct outline, ripe, dry) with logistic classifiers on 'OpenCLIP'
+    embeddings, and reports the CIELAB colour of each fruit and of the ripe
+    fruits of each photo, with white-balanced colour, colour names and the
+    colour of the surroundings. In R, the package reads, filters and
+    summarises results, recomputes fruit colour from crops and outlines,
+    converts reflectance spectra to the same colour space, checks colour
+    casts, corrects white balance, plots outlines and colours, reads the
+    tables of the published data set and tells whether a species is in the
+    scope of the method (fleshy-fruited trees, shrubs and woody climbers). A
+    trait catalogue rates every trait by its repeatability between two photos
+    of the same plant (intraclass correlation) and its invariance to
+    simulated camera changes and fruit size, and functions are provided to
+    repeat these tests and augmentation checks on new photos.
+License: GPL (>= 3)
+URL: https://github.com/ehsanrahimi666/FruitTrait
+BugReports: https://github.com/ehsanrahimi666/FruitTrait/issues
+Depends:
+    R (>= 4.1.0)
+Imports:
+    curl,
+    graphics,
+    grDevices,
+    jpeg,
+    jsonlite,
+    png,
+    reticulate (>= 1.28),
+    stats,
+    tools,
+    utils
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.1.7)
+SystemRequirements: Optional Python (>= 3.9) with torch, transformers
+    (5.16.1), ultralytics (8.4.185) and open_clip_torch (3.3.0) for the
+    photo back end; see fr_install().
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-GB
+LazyData: true
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.0

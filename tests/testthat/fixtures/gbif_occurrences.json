@@ -1,0 +1,12 @@
+{"endOfRecords": true, "results": [
+ {"key": 4400000001, "species": "Sorbus aucuparia", "family": "Rosaceae", "countryCode": "DE", "year": 2024,
+  "eventDate": "2024-09-01T10:00:00", "decimalLatitude": 50.1, "decimalLongitude": 8.6,
+  "reproductiveCondition": "fruits or seeds",
+  "media": [{"type": "StillImage", "identifier": "https://inaturalist-open-data.s3.amazonaws.com/photos/601/original.jpg",
+             "license": "http://creativecommons.org/licenses/by/4.0/", "rightsHolder": "Observer D"}]},
+ {"key": 4400000002, "species": "Sorbus aucuparia", "family": "Rosaceae", "countryCode": "DE", "year": 2024,
+  "eventDate": "2024-09-02T10:00:00", "decimalLatitude": 50.2, "decimalLongitude": 8.7,
+  "reproductiveCondition": "fruits or seeds",
+  "media": [{"type": "StillImage", "identifier": "https://inaturalist-open-data.s3.amazonaws.com/photos/602/original.jpg",
+             "license": "http://creativecommons.org/licenses/by-nc/4.0/", "rightsHolder": "Observer E"}]}
+]}

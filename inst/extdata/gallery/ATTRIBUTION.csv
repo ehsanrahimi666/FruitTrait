@@ -1,0 +1,15 @@
+file,photo_id,fruit,species,family,cls,stage,class_title,diam_px,p_valid,p_ripe,rights_holder,license,attribution,observation_url
+01_547699344_4,547699344,4,Morella pensylvanica,Myricaceae,F,R,"Single fleshy fruit, ripe",66.2,0.752,0.842,Wren L.,cc0,no rights reserved,https://www.inaturalist.org/observations/303850942
+02_288363735_2,288363735,2,Aristotelia peduncularis,Elaeocarpaceae,F,R,"Single fleshy fruit, ripe",74.3,0.473,0.984,Samuel Lee,cc-by,"(c) Samuel Lee, some rights reserved (CC BY)",https://www.inaturalist.org/observations/162861090
+03_236587088_5,236587088,5,Daphne gnidium,Thymelaeaceae,F,U,"Single fleshy fruit, unripe",197.5,0.898,0.016,Oriol Sastre,cc-by,"(c) Oriol Sastre, some rights reserved (CC BY)",https://www.inaturalist.org/observations/138422472
+04_171012158_1,171012158,1,Cordia boissieri,Boraginaceae,F,U,"Single fleshy fruit, unripe",110.4,0.318,0.133,Center for Urban Ecology,cc0,no rights reserved,https://www.inaturalist.org/observations/102320521
+05_405714694_4,405714694,4,Psidium guajava,Myrtaceae,F,D,"Single fleshy fruit, damaged",222.3,0.771,0.219,Lexi Amico,cc-by,"(c) Lexi Amico, some rights reserved (CC BY)",https://www.inaturalist.org/observations/228622693
+06_437447564_3,437447564,3,Symphoricarpos occidentalis,Caprifoliaceae,F,D,"Single fleshy fruit, damaged",101.4,0.328,0.899,Jared Lincenberg,cc-by,"(c) Jared Lincenberg, some rights reserved (CC BY)",https://www.inaturalist.org/observations/245169579
+07_6913225_3,6913225,3,Didymocheton spectabilis,Meliaceae,Y,U,Single dry fruit,196.9,0.948,0.009,Jacqui Geux,cc-by,"(c) Jacqui Geux, some rights reserved (CC BY)",https://www.inaturalist.org/observations/5596367
+08_227214355_2,227214355,2,Juglans nigra,Juglandaceae,Y,U,Single dry fruit,321.1,0.97,0.07,Sandy Wolkenberg,cc-by,"(c) Sandy Wolkenberg, some rights reserved (CC BY)",https://www.inaturalist.org/observations/133397713
+09_182623956_10,182623956,10,Adonidia merrillii,Arecaceae,P,,Partial or wrong outline,145.9,0.004,,Jay Pruett,cc-by,"(c) Jay Pruett, some rights reserved (CC BY)",https://www.inaturalist.org/observations/108466361
+10_221199064_2,221199064,2,Morinda royoc,Rubiaceae,P,,Partial or wrong outline,274.6,0.438,,Ben Machado,cc-by,"(c) Ben Machado, some rights reserved (CC BY)",https://www.inaturalist.org/observations/130100977
+11_508644230_6,508644230,6,Rhamnus alaternus,Rhamnaceae,C,,Several fruits,91.1,0.068,,Antoine MARNAT,cc-by,"(c) Antoine MARNAT, some rights reserved (CC BY)",https://www.inaturalist.org/observations/283084996
+12_459977423_2,459977423,2,Rhus ovata,Anacardiaceae,C,,Several fruits,157.8,0.004,,ricofish,cc0,no rights reserved,https://www.inaturalist.org/observations/256534916
+13_461503690_3,461503690,3,Ligustrum ovalifolium,Oleaceae,N,,Not a fruit,512.9,0.061,,Tom Erler,cc0,no rights reserved,https://www.inaturalist.org/observations/257283685
+14_240174370_1,240174370,1,Berberis darwinii,Berberidaceae,N,,Not a fruit,91.1,0.308,,Diego González,cc-by,"(c) Diego González, some rights reserved (CC BY)",https://www.inaturalist.org/observations/140316551

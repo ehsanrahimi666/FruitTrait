@@ -1,0 +1,174 @@
+---
+title: "Fruit colour from field photographs with FruitTrait"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fruit colour from field photographs with FruitTrait}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4)
+library(FruitTrait)
+```
+
+FruitTrait measures the colour of single fleshy fruits of trees, shrubs and woody climbers in field photographs.
+The photo pipeline (detection, outlines, outline checks and fruit classifiers) runs in an optional 'Python' back
+end; everything in this vignette except the last section runs in R alone, on the example photos and validation
+data shipped with the package.
+
+## Scope
+
+`fr_in_scope()` tells whether a species belongs to the group for which the method was built (`fr_scope`), and
+`fr_taxonomy()` matches names to the GBIF backbone:
+
+```{r}
+fr_in_scope(c("Sorbus aucuparia", "Malus sylvestris", "Fragaria vesca"))
+```
+
+```{r, eval = FALSE}
+fr_taxonomy(c("Sorbus aucuparia", "Viburnum opulus"))
+```
+
+## Example photos and their outlines
+
+Eight research-grade iNaturalist photos (CC0 or CC BY 4.0) are shipped with the crops and fruit label maps written
+by the back end:
+
+```{r}
+ex <- fr_example_photos()
+ex[, c("photo_id", "species", "family", "rights_holder", "license")]
+```
+
+```{r, fig.height = 3.6}
+op <- par(mfrow = c(1, 2))
+fr_plot_fruits(ex$crop[1], ex$labels[1], main = ex$species[1])
+fr_plot_fruits(ex$crop[5], ex$labels[5], main = ex$species[5])
+par(op)
+```
+
+The colour of outlined fruits is recomputed in R from a crop and its label map, for example after an outline has
+been corrected by hand. Each fruit's colour is the mean CIELAB (D65) colour of its pixels without the brightest 2%,
+which are mostly specular highlights:
+
+```{r}
+fr_fruit_colour(ex$crop[1], ex$labels[1])
+fr_fruit_colour(ex$crop[1], ex$labels[1], white_balance = "gray_world")[, c("label", "L", "a", "b", "name")]
+```
+
+Colour casts, clipping and dark crops are flagged by `fr_colour_check()`:
+
+```{r}
+fr_colour_check(ex$crop, ex$labels)
+```
+
+## Results of the back end and decision rules
+
+`fr_example_results()` returns the back-end results for the example photos. A fruit is measurable when its outline
+passed the checks and the classifiers rate it a single fruit with a correct outline (`p_valid` at least 0.5) and
+ripe (`p_ripe` at least 0.5); the colour of a photo (`m_L`, `m_a`, `m_b`, `m_C`, `m_hue`, `m_name`) is the mean colour
+of its measurable fruits.
+
+```{r}
+res <- fr_example_results(rule = "measurable")
+res[, c("photo_id", "species", "n_fruits_ok", "m_n", "m_name", "v_name", "keep")]
+summary(res)
+f <- fr_fruits(res, "outlined")
+head(f[, c("photo_id", "label", "px", "solidity", "p_valid", "p_ripe", "L", "a", "b", "name")])
+```
+
+`fr_filter()` applies one of four rules: `"measurable"` (default), `"valid"` (all single fruits with a correct
+outline, ripe or not), `"outlined"` (all outlines that passed the checks) and `"none"`. The precision and recall of
+the classifiers at several thresholds were estimated on the rated benchmark fruits with out-of-fold
+predictions:
+
+```{r}
+fr_benchmark$heads[, c("head", "fruits", "cv_auc", "oof_balanced_accuracy", "nested_cv_auc", "usable")]
+round(fr_benchmark$rules, 3)
+```
+
+The ripeness classifier keeps ripe red, black and blue fruits more often than ripe yellow, orange and brown fruits,
+so analyses of colour composition should be repeated with the colour of all valid fruits (`v_` traits):
+
+```{r}
+rc <- fr_benchmark$ripe_colour
+rc[rc$rated == "ripe", ]
+```
+
+## How far can each trait be trusted?
+
+`fr_catalogue` lists every trait with its definition, its repeatability between two photos of the same plant
+(`fr_validation`), its invariance to simulated camera changes and resolution, and a verdict:
+
+```{r}
+table(fr_catalogue$family, fr_catalogue$verdict)
+fr_trait_info(c("m_L", "m_a", "m_b", "m_C", "m_hue", "m_name"))
+fr_reliable_traits(c("reliable", "use with care"))
+```
+
+Repeatability is the intraclass correlation ICC(1) between two photos of the same plant taken on the same
+occasion, with a bootstrap interval over observations:
+
+```{r, fig.height = 3.4}
+v <- fr_validation[fr_validation$both_measurable, ]
+r <- fr_repeatability(v, traits = c("m_L", "m_a", "m_b", "m_C", "m_hue", "ring_dE00", "gloss_frac"), boot = 100)
+r
+fr_plot_repeatability(r)
+```
+
+`fr_augment()` simulates camera changes (white balance, exposure, JPEG compression, blur, rotation, perspective) and
+training-style augmentations (quarter turns, mirroring, colour jitter); `fr_invariance()` measures how much the fruit
+colour changes under them and when the fruits are reduced to a given size, and `fr_augment_check()` expresses the
+change relative to the usual difference between photos:
+
+```{r}
+inv <- fr_invariance(ex$crop, ex$labels, types = c("white_balance", "exposure", "jpeg"), rungs = 32, min_n = 5)
+round(inv, 3)
+chk <- fr_augment_check(ex$crop[1], ex$labels[1], types = c("rotate90", "saturation", "hue"))
+chk[chk$trait %in% c("L", "C", "hue_deg"), c("type", "trait", "mean_change", "rel_change", "flag")]
+```
+
+The results of these analyses on the benchmark crops are in `fr_benchmark$invariance` and
+`fr_benchmark$augmentation`.
+
+## Photo colour against reflectance spectra
+
+`fr_spectra_to_lab()` converts reflectance spectra to the colour space of the traits (CIE 1931 2° observer, D65):
+
+```{r}
+wl <- 300:700
+red_fruit <- 4 + 60 / (1 + exp(-(wl - 600) / 10))
+fr_spectra_to_lab(wl, red_fruit)
+```
+
+`fr_reference` holds the mean photo colour of 104 species with published fruit reflectance spectra:
+
+```{r, fig.height = 3.6}
+with(fr_reference, cor.test(C, spectral_saturation, method = "spearman", exact = FALSE))
+plot(spectral_saturation ~ C, data = fr_reference, pch = 19, col = "grey30",
+     xlab = "Chroma C* of the photographs", ylab = "Spectral saturation")
+```
+
+## Reading the published data set
+
+The tables of the FruitTraits data set are read with the column types of its data dictionary: only empty fields
+are missing values, so that the country code of Namibia (`"NA"`) is kept.
+
+```{r, eval = FALSE}
+photos <- fr_read_dataset("PATH_TO_DATASET_FOLDER", "photos")
+fruits <- fr_read_dataset("PATH_TO_DATASET_FOLDER", "fruits")
+```
+
+## A complete analysis with the back end
+
+```{r, eval = FALSE}
+fr_install(cpu_only = TRUE)        # once
+fr_use_backend()                   # in every R session
+ph <- fr_inat_photos("Sorbus aucuparia", n = 50)
+ph <- fr_download_photos(ph, dir = "PATH_TO_PHOTO_FOLDER")
+res <- fr_process(ph, out_dir = "PATH_TO_OUTPUT_FOLDER")
+summary(res)
+fr_contact_sheet(res)              # check outlines by eye
+fr_summarise(res)                  # colour per species
+writeLines(fr_attribution(ph), "attribution.txt")
+```

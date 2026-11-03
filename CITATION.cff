@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use FruitTrait, please cite it as below."
+title: "FruitTrait: Colour of Fleshy Fruits from Field Photographs"
+version: 0.1.0
+date-released: 2026-11-03
+license: GPL-3.0-or-later
+repository-code: "https://github.com/ehsanrahimi666/FruitTrait"
+type: software
+authors:
+  - family-names: Rahimi
+    given-names: Ehsan
+    orcid: "https://orcid.org/0000-0002-8401-472X"
+  - family-names: Jung
+    given-names: Chuleui
+keywords:
+  - fruit colour
+  - frugivory
+  - seed dispersal
+  - citizen science
+  - iNaturalist
+  - GBIF
+  - computer vision
+  - R

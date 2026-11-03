@@ -1,0 +1,23 @@
+test_that("data set tables keep identifiers and country codes and type the other columns", {
+  d <- file.path(tempdir(), "fr_dataset_test")
+  dir.create(d, showWarnings = FALSE)
+  on.exit(unlink(d, recursive = TRUE))
+  writeLines(c("photo_id,occurrenceKey,countryCode,measurable,m_L,species",
+               "0012,345,NA,True,40.5,Viburnum opulus",
+               "0013,346,DE,False,,Sorbus aucuparia"), file.path(d, "photos.csv"))
+  x <- fr_read_dataset(d)
+  expect_identical(x$photo_id, c("0012", "0013"))
+  expect_identical(x$occurrenceKey, c("345", "346"))
+  expect_identical(x$countryCode, c("NA", "DE"))
+  expect_identical(x$measurable, c(TRUE, FALSE))
+  expect_equal(x$m_L, c(40.5, NA))
+  expect_identical(x$species, c("Viburnum opulus", "Sorbus aucuparia"))
+  con <- gzfile(file.path(d, "species.csv.gz"), "w")
+  writeLines(c("species,n_photos", "Viburnum opulus,12"), con)
+  close(con)
+  expect_equal(fr_read_dataset(d, "species")$n_photos, 12)
+  expect_equal(nrow(fr_read_dataset(file.path(d, "photos.csv"))), 2)
+  expect_error(fr_read_dataset(d, "fruits"), "not found")
+  expect_error(fr_read_dataset(file.path(d, "nope.csv")), "Not found")
+  expect_error(fr_read_dataset(d, "nope"), "should be one of")
+})

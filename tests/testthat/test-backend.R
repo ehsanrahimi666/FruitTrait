@@ -1,0 +1,38 @@
+test_that("photo inputs are turned into a back-end list", {
+  ex <- fr_example_photos()
+  it <- FruitTrait:::.fr_items(ex$photo[1:2])
+  expect_equal(it$photo_id, ex$photo_id[1:2])
+  expect_true(all(is.na(it$photo_url)))
+  u <- FruitTrait:::.fr_items(c("https://example.org/photos/1/original.jpg", "https://example.org/p/2.jpg?x=1"))
+  expect_equal(u$photo_id, c("original", "2"))
+  expect_true(all(is.na(u$path)))
+  df <- FruitTrait:::.fr_items(data.frame(photo_id = c(1, 2), url = c("https://a.org/1.jpg", NA), species = "x"))
+  expect_equal(df$photo_id, "1")
+  expect_true("species" %in% names(df))
+  expect_error(FruitTrait:::.fr_items(c(tempfile(), tempfile())), "not found")
+  expect_error(FruitTrait:::.fr_items(data.frame(photo_id = c(1, 1), path = ex$photo[1:2])), "unique")
+  expect_error(FruitTrait:::.fr_items(1:3), "must be")
+  expect_false(fr_backend_available(python = file.path(tempdir(), "no_python")))
+  expect_error(fr_use_backend(python = file.path(tempdir(), "no_python")), "not found")
+})
+
+test_that("the back end processes an example photo and R reproduces its fruit colour", {
+  skip_on_cran()
+  skip_if_not(identical(Sys.getenv("FRUITTRAIT_TEST_BACKEND"), "true"),
+              "set FRUITTRAIT_TEST_BACKEND=true to test the back end")
+  skip_if_not(fr_backend_available(), "Python back end not available")
+  ex <- fr_example_photos()
+  out <- file.path(tempdir(), "fr_backend_test")
+  on.exit(unlink(out, recursive = TRUE))
+  res <- fr_process(ex$photo[1], out_dir = out, rule = "outlined")
+  expect_s3_class(res, "fr_results")
+  expect_equal(nrow(res), 1L)
+  expect_true(all(file.exists(file.path(out, c("traits.csv", "fruits.csv")))))
+  f <- fr_fruits(res, "outlined")
+  expect_gt(nrow(f), 0)
+  expect_true(all(c("p_valid", "p_ripe", "p_dry") %in% names(f)))
+  fc <- fr_fruit_colour(file.path(out, "crops", paste0(ex$photo_id[1], ".jpg")),
+                        file.path(out, "fruits", paste0(ex$photo_id[1], ".png")))
+  fb <- f[match(fc$label, f$label), ]
+  expect_lt(max(fr_delta_e(cbind(fc$L, fc$a, fc$b), cbind(fb$L, fb$a, fb$b))), 2)
+})

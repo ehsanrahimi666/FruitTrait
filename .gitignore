@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+inst/doc
+doc
+Meta
+__pycache__/
+*.pyc
+.pytest_cache/
+*.pt
+*.tar.gz
+FruitTrait.Rcheck/

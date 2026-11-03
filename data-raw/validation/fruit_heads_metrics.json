@@ -1,0 +1,216 @@
+{
+ "rated_fruits": 1367,
+ "matched_fruits": 1367,
+ "match_iou": 0.5,
+ "cv_groups": "species",
+ "valid": {
+  "fruits": 1367,
+  "positive": 944,
+  "negative": 423,
+  "species_positive": 190,
+  "species_negative": 152,
+  "min_cv_auc": 0.8,
+  "min_oof_balanced_accuracy": 0.75,
+  "threshold": 0.5,
+  "nested_cv_auc": 0.9141160295708618,
+  "nested_oof_balanced_accuracy": 0.8400436250350602,
+  "nested_sets_chosen": {
+   "clip_ctx+alone+qc+zs": 4,
+   "zs+qc": 4,
+   "clip_ctx+alone+qc": 2
+  },
+  "trained": true,
+  "feature_set": "zs+qc",
+  "cv_auc": 0.9221686300436751,
+  "oof_balanced_accuracy": 0.8622956485154465,
+  "C": 0.1,
+  "usable": true,
+  "oof_share_positive_kept": 0.8877118644067796,
+  "oof_share_negative_removed": 0.8368794326241135,
+  "oof_positive_kept_by_colour": {
+   "black": {
+    "share": 0.871,
+    "n": 62
+   },
+   "blue": {
+    "share": 0.842,
+    "n": 19
+   },
+   "brown": {
+    "share": 0.8,
+    "n": 85
+   },
+   "green": {
+    "share": 0.881,
+    "n": 160
+   },
+   "grey": {
+    "share": 0.902,
+    "n": 51
+   },
+   "orange": {
+    "share": 0.924,
+    "n": 66
+   },
+   "pink": {
+    "share": 0.808,
+    "n": 26
+   },
+   "purple": {
+    "share": 1.0,
+    "n": 20
+   },
+   "red": {
+    "share": 0.913,
+    "n": 196
+   },
+   "white": {
+    "share": 0.745,
+    "n": 47
+   },
+   "yellow": {
+    "share": 0.929,
+    "n": 212
+   }
+  }
+ },
+ "ripe": {
+  "fruits": 900,
+  "positive": 416,
+  "negative": 484,
+  "species_positive": 110,
+  "species_negative": 112,
+  "min_cv_auc": 0.8,
+  "min_oof_balanced_accuracy": 0.75,
+  "threshold": 0.5,
+  "nested_cv_auc": 0.9135956373172283,
+  "nested_oof_balanced_accuracy": 0.8433526700572155,
+  "nested_sets_chosen": {
+   "clip_ctx+alone+qc+zs": 5,
+   "zs+qc": 2,
+   "clip_ctx+alone+qc": 1,
+   "clip_ctx+alone+zs": 1,
+   "zs": 1
+  },
+  "trained": true,
+  "feature_set": "clip_ctx+alone+qc+zs",
+  "cv_auc": 0.9244725445009537,
+  "oof_balanced_accuracy": 0.847643833439288,
+  "C": 0.0031622776601683794,
+  "usable": true,
+  "oof_share_positive_kept": 0.8605769230769231,
+  "oof_share_negative_removed": 0.8347107438016529,
+  "oof_positive_kept_by_colour": {
+   "black": {
+    "share": 0.913,
+    "n": 46
+   },
+   "blue": {
+    "share": 1.0,
+    "n": 19
+   },
+   "brown": {
+    "share": 0.63,
+    "n": 27
+   },
+   "green": {
+    "share": 0.333,
+    "n": 3
+   },
+   "grey": {
+    "share": 0.852,
+    "n": 27
+   },
+   "orange": {
+    "share": 0.444,
+    "n": 18
+   },
+   "pink": {
+    "share": 1.0,
+    "n": 21
+   },
+   "purple": {
+    "share": 1.0,
+    "n": 19
+   },
+   "red": {
+    "share": 0.989,
+    "n": 174
+   },
+   "white": {
+    "share": 0.833,
+    "n": 36
+   },
+   "yellow": {
+    "share": 0.231,
+    "n": 26
+   }
+  }
+ },
+ "dry": {
+  "fruits": 944,
+  "positive": 77,
+  "negative": 867,
+  "species_positive": 19,
+  "species_negative": 172,
+  "min_cv_auc": 0.8,
+  "min_oof_balanced_accuracy": 0.75,
+  "threshold": 0.5,
+  "nested_cv_auc": 0.5888719124013242,
+  "nested_oof_balanced_accuracy": 0.5234238080258842,
+  "nested_sets_chosen": {
+   "clip_ctx": 3,
+   "clip_ctx+alone+qc+zs": 2,
+   "clip_ctx+alone+zs": 2,
+   "clip_ctx+alone+qc": 2,
+   "clip_ctx+alone": 1
+  },
+  "trained": true,
+  "feature_set": "clip_ctx",
+  "cv_auc": 0.6097455024790664,
+  "oof_balanced_accuracy": 0.5437693794095179,
+  "C": 0.01,
+  "usable": false,
+  "oof_share_positive_kept": 0.19480519480519481,
+  "oof_share_negative_removed": 0.8927335640138409,
+  "oof_positive_kept_by_colour": {
+   "black": {
+    "share": 0.0,
+    "n": 1
+   },
+   "brown": {
+    "share": 0.211,
+    "n": 19
+   },
+   "green": {
+    "share": 0.385,
+    "n": 13
+   },
+   "grey": {
+    "share": 0.0,
+    "n": 7
+   },
+   "orange": {
+    "share": 0.0,
+    "n": 3
+   },
+   "pink": {
+    "share": 0.0,
+    "n": 7
+   },
+   "red": {
+    "share": 0.0,
+    "n": 3
+   },
+   "white": {
+    "share": 0.0,
+    "n": 1
+   },
+   "yellow": {
+    "share": 0.261,
+    "n": 23
+   }
+  }
+ },
+ "usable_all": true
+}
